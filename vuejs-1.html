@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body id="app">
+	<div>
+		<div>
+			<h1>表达式、双向绑定</h1>
+			<input v-model="message" />
+			<p>{{ message }}</p>
+		</div>
+		
+		<div>
+			<h1>渲染列表</h1>
+			<ul>
+				<li v-for="x in todos">{x.text}</li>
+			</ul>
+		</div>
+		
+		<div>
+			<h1>事件</h1>
+			<p>{{ message }}</p>
+			<button v-on:click="click">methods</button>
+		</div>
+		
+		<div>
+			<h1>综合</h1>
+			<input type="text" v-model="newTodo" v-on:keyup.enter="addtodo" />
+			<ul>
+			    <li v-for="todo in todos">
+			      <span>{{ todo.text }}</span>
+			      <button v-on:click="removeTodo($index)">X</button>
+			    </li>
+			</ul>
+		</div>
+		
+		<div>
+			<h1>数据渲染 {{}}、v-text、 v-html</h1>
+			<div>
+				{{ shujuxuanyan }}
+			</div>
+			<div v-text="shujuxuanyan">
+				
+			</div>
+			<div v-html="shujuxuanyan">
+				
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:'#app',
+			data:{
+				shujuxuanyan:'<h1>1</h1>',
+				message:'双向绑定',
+				todos:[
+					{text:'javascript'},
+					{text:'vue.js'},
+					{text:'something'}
+				],
+				newTodo:''
+			},
+			methods:{
+				click:function(){
+					this.message = this.message.split('').reverse().join('')
+				},
+				addtodo:function(){
+					var text= this.newTodo.trim();
+					if (text) {
+				        this.todos.push({ text: text })
+				        this.newTodo = ''
+        			}
+				},
+				removeTodo:function(index){
+					this.todos.splice(index, 1)
+				}
+			},
+			watch:{}
+		})
+	</script>
+</body>
+</html>
